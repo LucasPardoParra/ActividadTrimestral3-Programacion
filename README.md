@@ -9,6 +9,7 @@ Este proyecto es una aplicación de consola en Java que permite gestionar el cat
 - **Consultar el catálogo**: Muestra todos los libros disponibles en la biblioteca.
 - **Agregar libros**: Permite añadir un libro al catálogo, siempre que haya espacio y no esté repetido.
 - **Eliminar libros**: Permite eliminar un libro del catálogo por su ISBN.
+- **Buscar libros**: Permite buscar un libro del catálogo por su ISBN.
 - **Exportar el catálogo**: Guarda todos los libros en un fichero binario `libros.obj`.
 
 ## ⚙️ Funcionamiento
