@@ -1,11 +1,15 @@
 package model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-public class LibroPoliciaco extends Libro{
+public class LibroPoliciaco extends Libro {
     String trama;
-    ArrayList<String> personajes = new ArrayList<>();
+
+    public LibroPoliciaco() {
+    }
+
+    public LibroPoliciaco(String titulo, String autor, String genero, long isbn, String trama) {
+        super(titulo, autor, genero, isbn);
+        this.trama = trama;
+    }
 
     @Override
     public void mostrarDatos() {
@@ -14,9 +18,5 @@ public class LibroPoliciaco extends Libro{
         System.out.println("Autor: " + autor);
         System.out.println("Género: " + genero);
         System.out.println("Trama: " + trama);
-        System.out.print("Personajes: ");
-        for (String personaje : personajes) {
-            System.out.print(personaje + ", ");
-        }
     }
 }

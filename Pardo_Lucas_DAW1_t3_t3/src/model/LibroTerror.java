@@ -1,7 +1,15 @@
 package model;
 
-public class LibroTerror extends Libro{
+public class LibroTerror extends Libro {
     String calificacion;
+
+    public LibroTerror() {
+    }
+
+    public LibroTerror(String titulo, String autor, String genero, long isbn, String calificacion) {
+        super(titulo, autor, genero, isbn);
+        this.calificacion = calificacion;
+    }
 
     @Override
     public void mostrarDatos() {

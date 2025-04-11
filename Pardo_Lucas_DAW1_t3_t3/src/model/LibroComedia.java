@@ -3,6 +3,14 @@ package model;
 public class LibroComedia extends Libro {
     String tipoHumor;
 
+    public LibroComedia() {
+    }
+
+    public LibroComedia(String titulo, String autor, String genero, long isbn, String tipoHumor) {
+        super(titulo, autor, genero, isbn);
+        this.tipoHumor = tipoHumor;
+    }
+
     @Override
     public void mostrarDatos() {
         System.out.println("ISBN: " + isbn);

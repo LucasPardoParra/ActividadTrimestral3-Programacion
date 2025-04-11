@@ -3,12 +3,12 @@ package model;
 public abstract class Libro {
     String titulo, autor;
     String genero;
-    int isbn;
+    long isbn;
 
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String genero, int isbn) {
+    public Libro(String titulo, String autor, String genero, long isbn) {
         this.titulo = titulo;
         this.autor = autor;
         this.genero = genero;
@@ -39,11 +39,11 @@ public abstract class Libro {
         this.genero = genero;
     }
 
-    public int getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 
