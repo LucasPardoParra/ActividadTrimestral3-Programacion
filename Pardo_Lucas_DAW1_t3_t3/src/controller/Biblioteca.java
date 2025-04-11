@@ -62,7 +62,7 @@ public class Biblioteca {
                 catalogoMaxSize = scanner.nextInt();
                 this.catalogo = new ArrayList<>();
                 this.isCatalogo = true;
-                System.out.println("El catálogo de libros ha sido creado");
+                System.out.println("El catálogo de libros ha sido creado.");
                 System.out.println();
             } else {
                 System.out.println("El catálogo ya existía antes. Prueba a añadir libros.");
@@ -71,12 +71,15 @@ public class Biblioteca {
         } catch (InputMismatchException e) {
             System.out.println("Error al crear el catálogo. Escoja un nº de libros válido.");
             System.out.println();
+            scanner.nextLine();
         }
     }
 
     public void agregarLibro() throws ExcepcionesPersonalizadas.NoExisteCatalogo, ExcepcionesPersonalizadas.CatalogoLleno {
         boolean opcionValida = false;
         long isbn;
+        int generoOpcion;
+        String genero = null;
 
         if (!isCatalogo) {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
@@ -92,6 +95,8 @@ public class Biblioteca {
             scanner.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Error al agregar el libro: introduzca un ISBN válido.");
+            System.out.println();
+            scanner.nextLine();
             return;
         }
         System.out.print("Introduce el título del libro: ");
@@ -107,87 +112,128 @@ public class Biblioteca {
                 System.out.println("2. Terror");
                 System.out.println("3. Policiaco");
                 System.out.println("4. Ensayo");
-                String genero = scanner.nextLine();
+                generoOpcion = scanner.nextInt();
+                scanner.nextLine();
 
-                switch (genero) {
-                    case "1":
+                switch (generoOpcion) {
+                    case 1:
+                        genero = "Comedia";
                         System.out.print("Introduce el tipo de humor: ");
                         String tipoHumor = scanner.nextLine();
                         catalogo.add(new LibroComedia(titulo, autor, genero, isbn, tipoHumor));
-                        System.out.println("Libro de comedia agregado con éxito");
+                        System.out.println("Libro de comedia agregado con éxito.");
+                        System.out.println();
                         opcionValida = true;
                         break;
-                    case "2":
+                    case 2:
+                        genero = "Terror";
                         System.out.print("Introduce la calificación: ");
                         String calificacion = scanner.nextLine();
                         catalogo.add(new LibroTerror(titulo, autor, genero, isbn, calificacion));
-                        System.out.println("Libro de terror agregado con éxito");
+                        System.out.println("Libro de terror agregado con éxito.");
+                        System.out.println();
                         opcionValida = true;
                         break;
-                    case "3":
+                    case 3:
+                        String trama;
+                        boolean tramaValida = false;
+                        genero = "Policiaco";
                         System.out.print("Introduce la trama: ");
-                        String trama = scanner.nextLine();
+                        do {
+                            System.out.println("¿Qué tipo de trama es? (Misterio/Intriga)");
+                            trama = scanner.nextLine();
+                            if (trama.equalsIgnoreCase("misterio") || trama.equalsIgnoreCase("intriga")) {
+                                tramaValida = true;
+                            } else {
+                                System.out.println("Error: tipo de trama no válido. Por favor, introduce 'misterio' o 'intriga'.");
+                                System.out.println();
+                            }
+                        } while (!tramaValida);
                         catalogo.add(new LibroPoliciaco(titulo, autor, genero, isbn, trama));
+                        System.out.println("Novela policiaca agregada con éxito.");
+                        System.out.println();
                         opcionValida = true;
                         break;
-                    case "4":
+                    case 4:
+                        genero = "Ensayo";
                         System.out.print("Introduce el tema: ");
                         String tema = scanner.nextLine();
                         catalogo.add(new LibroEnsayo(titulo, autor, genero, isbn, tema));
+                        System.out.println("Ensayo agregado con éxito.");
+                        System.out.println();
                         opcionValida = true;
                         break;
                     default:
                         System.out.println("Opción no válida. Por favor intenta de nuevo.");
+                        System.out.println();
                 }
             } while (!opcionValida);
         } catch (InputMismatchException e) {
-            System.out.println("Error al agregar el libro: introduzca un género válido (nº del 1 al 4");
+            System.out.println("Error al agregar el libro: introduzca un género válido (nº del 1 al 4).");
+            System.out.println();
+            scanner.nextLine();
         }
 
     }
 
-    public void buscarLibro(int isbn) throws ExcepcionesPersonalizadas.NoExisteCatalogo {
+    public void buscarLibro() throws ExcepcionesPersonalizadas.NoExisteCatalogo {
         if (!isCatalogo) {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
         }
 
         try {
+            System.out.print("Introduzca el ISBN del libro que desea buscar: ");
+            long isbn = scanner.nextInt();
+            System.out.println();
+
             boolean libroEncontrado = false;
             for (Libro libro : catalogo) {
                 if (libro.getIsbn() == isbn) {
                     libro.mostrarDatos();
+                    System.out.println();
                     libroEncontrado = true;
                     break;
                 }
             }
             if (!libroEncontrado) {
-                System.out.println("Lo sentimos, el libro que buscas no está en el catálogo");
+                System.out.println("Lo sentimos, el libro que buscas no está en el catálogo.");
+                System.out.println();
             }
         } catch (InputMismatchException e) {
             System.out.println("Error al buscar el libro. Por favor, introduce un ISBN válido.");
+            System.out.println();
+            scanner.nextLine();
         }
     }
 
-    public void eliminarLibro(int isbn) throws ExcepcionesPersonalizadas.NoExisteCatalogo {
+    public void eliminarLibro() throws ExcepcionesPersonalizadas.NoExisteCatalogo {
         if (!isCatalogo) {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
         }
 
         try {
+            System.out.print("Introduzca el ISBN del libro que desea eliminar: ");
+            long isbn = scanner.nextInt();
+            System.out.println();
+
             boolean libroEncontrado = false;
             for (Libro libro : catalogo) {
                 if (libro.getIsbn() == isbn) {
                     catalogo.remove(libro);
-                    System.out.println("Libro eliminado con éxito");
+                    System.out.println("Libro eliminado con éxito.");
+                    System.out.println();
                     libroEncontrado = true;
                     break;
                 }
             }
             if (!libroEncontrado) {
-                System.out.println("Este libro no existe en el catálogo, lo sentimos");
+                System.out.println("Este libro no existe en el catálogo, lo sentimos.");
+                System.out.println();
             }
         } catch (InputMismatchException e) {
             System.out.println("Error al eliminar el libro. Por favor, introduce un ISBN válido.");
+            System.out.println();
+            scanner.nextLine();
         }
     }
 
@@ -199,6 +245,7 @@ public class Biblioteca {
         try {
             if (catalogo.isEmpty()) {
                 System.out.println("No hay libros en el catálogo.");
+                System.out.println();
             } else {
                 System.out.println("Hay " + catalogo.size() + " libros en el catálogo.");
                 System.out.println("Aquí tienes una lista de todos ellos:");
@@ -209,7 +256,8 @@ public class Biblioteca {
                 }
             }
         } catch (Exception e) {
-            System.out.println("ha ocurrido un error al listar los libros.");
+            System.out.println("Ha ocurrido un error al listar los libros.");
+            System.out.println();
         }
     }
 
@@ -218,11 +266,19 @@ public class Biblioteca {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
         }
 
+        if (catalogo.isEmpty()) {
+            System.out.println("No hay libros en el catálogo para exportar.");
+            System.out.println();
+            return;
+        }
+
         try {
             // Implementar la lógica para exportar el catálogo a un fichero
             System.out.println("Catálogo exportado con éxito");
+            System.out.println();
         } catch (Exception e) {
-            System.out.println("Error al exportar el catálogo: " + e.getMessage());
+            System.out.println("Ha ocurrido un error al exportar el catálogo: " + e.getMessage());
+            System.out.println();
         }
     }
 }

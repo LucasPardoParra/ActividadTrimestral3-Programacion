@@ -44,25 +44,25 @@ public class Entrada {
 
         System.out.println("\n--------------------------------------------------");
         System.out.println("¡Bienvenido al Programa de Gestión de Bibliotecas!");
-        System.out.println("Para empezar, crea tu primera biblioteca. Introduce los siguientes datos");
+        System.out.println("Para empezar, crea tu primera biblioteca. Introduce los siguientes datos.");
         System.out.println();
         System.out.print("Nombre de la biblioteca: ");
         String nombreBiblioteca = scanner.nextLine();
         System.out.print("Director de la biblioteca: ");
         String directorBiblioteca = scanner.nextLine();
         Biblioteca biblioteca = new Biblioteca(nombreBiblioteca, directorBiblioteca);
-        System.out.println("Biblioteca creada con éxito");
+        System.out.println("Biblioteca creada con éxito.");
         System.out.println();
         do {
             try {
                 System.out.println("¿Qué deseas hacer?");
-                System.out.println("1. Crear un catálogo");
-                System.out.println("2. Añadir un libro al catálogo");
-                System.out.println("3. Eliminar un libro del catálogo");
-                System.out.println("4. Buscar un libro del catálogo");
-                System.out.println("5. Listar todos los libros del catálogo");
-                System.out.println("6. Exportar catálogo a un fichero");
-                System.out.println("7. Salir del programa");
+                System.out.println("1. Crear un catálogo.");
+                System.out.println("2. Añadir un libro al catálogo.");
+                System.out.println("3. Buscar un libro del catálogo.");
+                System.out.println("4. Eliminar un libro del catálogo.");
+                System.out.println("5. Listar todos los libros del catálogo.");
+                System.out.println("6. Exportar catálogo a un fichero.");
+                System.out.println("7. Salir del programa.");
                 System.out.print("Introduce una opción: ");
 
                 opcionMenu = scanner.nextInt();
@@ -78,26 +78,25 @@ public class Entrada {
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo |
                                  ExcepcionesPersonalizadas.CatalogoLleno e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
+                            System.out.println();
                         }
                         break;
                     case 3:
                         System.out.println();
-                        System.out.print("Introduzca el ISBN del libro que desea buscar: ");
-                        isbn = scanner.nextInt();
                         try {
-                            biblioteca.buscarLibro(isbn);
+                            biblioteca.buscarLibro();
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
+                            System.out.println();
                         }
                         break;
                     case 4:
                         System.out.println();
-                        System.out.println("Introduzca el ISBN del libro que desea eliminar: ");
-                        isbn = scanner.nextInt();
                         try {
-                            biblioteca.eliminarLibro(isbn);
+                            biblioteca.eliminarLibro();
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
+                            System.out.println();
                         }
                         break;
                     case 5:
@@ -106,6 +105,7 @@ public class Entrada {
                             biblioteca.listarLibros();
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
+                            System.out.println();
                         }
                         break;
                     case 6:
@@ -114,6 +114,7 @@ public class Entrada {
                             biblioteca.exportarCatalogo();
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
+                            System.out.println();
                         }
                         break;
                     case 7:
@@ -125,6 +126,7 @@ public class Entrada {
                     default:
                         System.out.println();
                         System.out.println("Opción no válida, por favor introduce un número del 1 al 7.");
+                        System.out.println();
                 }
             } catch (InputMismatchException e) {
                 System.out.println();
