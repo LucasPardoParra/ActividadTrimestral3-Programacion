@@ -317,6 +317,7 @@ public class Biblioteca {
             }
         }
         System.out.println("El catálogo ha sido exportado con éxito a " + path);
+        System.out.println();
 
     }
 
