@@ -7,7 +7,7 @@ import model.LibroTerror;
 import model.LibroEnsayo;
 import utils.ExcepcionesPersonalizadas;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -176,7 +176,7 @@ public class Biblioteca {
 
     }
 
-    public void buscarLibro() throws ExcepcionesPersonalizadas.NoExisteCatalogo {
+    public void buscarLibro() throws ExcepcionesPersonalizadas.NoExisteCatalogo, ExcepcionesPersonalizadas.LibroNoEncontrado {
         if (!isCatalogo) {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
         }
@@ -196,8 +196,7 @@ public class Biblioteca {
                 }
             }
             if (!libroEncontrado) {
-                System.out.println("Lo sentimos, el libro que buscas no está en el catálogo.");
-                System.out.println();
+                throw new ExcepcionesPersonalizadas.LibroNoEncontrado("Este libro no existe en el catálogo, lo sentimos.");
             }
         } catch (InputMismatchException e) {
             System.out.println("Error al buscar el libro. Por favor, introduce un ISBN válido.");
@@ -261,7 +260,7 @@ public class Biblioteca {
         }
     }
 
-    public void exportarCatalogo() throws ExcepcionesPersonalizadas.NoExisteCatalogo {
+    public void exportarCatalogo(String path) throws ExcepcionesPersonalizadas.NoExisteCatalogo {
         if (!isCatalogo) {
             throw new ExcepcionesPersonalizadas.NoExisteCatalogo("No existe un catálogo creado. Por favor, crea un catálogo primero.");
         }
@@ -272,13 +271,54 @@ public class Biblioteca {
             return;
         }
 
-        try {
-            // Implementar la lógica para exportar el catálogo a un fichero
-            System.out.println("Catálogo exportado con éxito");
-            System.out.println();
-        } catch (Exception e) {
-            System.out.println("Ha ocurrido un error al exportar el catálogo: " + e.getMessage());
-            System.out.println();
+        File ficheroLibros = new File(path);
+        PrintWriter printWriter = null;
+
+        if (!ficheroLibros.exists()) {
+            try {
+                ficheroLibros.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error al crear el fichero.");
+                System.out.println();
+            }
         }
+
+        try {
+            printWriter = new PrintWriter(new FileWriter(ficheroLibros, true));
+            for (Libro libro : catalogo) {
+                // Dependiendo del tipo de libro, se escribirá en el fichero unos datos u otros
+                if (libro instanceof LibroComedia) {
+                    printWriter.println(libro.getTitulo() + "," + libro.getAutor() + ","
+                            + libro.getGenero() + "," + libro.getIsbn() + "," +
+                            ((LibroComedia) libro).getTipoHumor());
+                } else if (libro instanceof LibroTerror) {
+                    printWriter.println(libro.getTitulo() + "," + libro.getAutor() + ","
+                            + libro.getGenero() + "," + libro.getIsbn() + "," +
+                            ((LibroTerror) libro).getCalificacion());
+                } else if (libro instanceof LibroPoliciaco) {
+                    printWriter.println(libro.getTitulo() + "," + libro.getAutor() + ","
+                            + libro.getGenero() + "," + libro.getIsbn() + "," +
+                            ((LibroPoliciaco) libro).getTrama());
+                } else if (libro instanceof LibroEnsayo) {
+                    printWriter.println(libro.getTitulo() + "," + libro.getAutor() + ","
+                            + libro.getGenero() + "," + libro.getIsbn() + "," +
+                            ((LibroEnsayo) libro).getTema());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error en la apertura del fichero");
+        } catch (NullPointerException e) {
+            System.out.println("Ha ocurrido un NullPointerException");
+        } finally {
+            try {
+                printWriter.close();
+            } catch (NullPointerException e) {
+                System.out.println("Error al cerrar el fichero");
+            }
+        }
+        System.out.println("El catálogo ha sido exportado con éxito a " + path);
+
     }
+
 }
+

@@ -11,6 +11,14 @@ public class LibroEnsayo extends Libro {
         this.tema = tema;
     }
 
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
     @Override
     public void mostrarDatos() {
         System.out.println("ISBN: " + isbn);

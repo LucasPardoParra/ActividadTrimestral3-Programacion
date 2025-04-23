@@ -11,6 +11,14 @@ public class LibroTerror extends Libro {
         this.calificacion = calificacion;
     }
 
+    public String getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(String calificacion) {
+        this.calificacion = calificacion;
+    }
+
     @Override
     public void mostrarDatos() {
         System.out.println("ISBN: " + isbn);

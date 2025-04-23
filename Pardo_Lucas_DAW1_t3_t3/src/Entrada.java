@@ -61,7 +61,7 @@ public class Entrada {
                 System.out.println("3. Buscar un libro del catálogo.");
                 System.out.println("4. Eliminar un libro del catálogo.");
                 System.out.println("5. Listar todos los libros del catálogo.");
-                System.out.println("6. Exportar catálogo a un fichero.");
+                System.out.println("6. Exportar catálogo.");
                 System.out.println("7. Salir del programa.");
                 System.out.print("Introduce una opción: ");
 
@@ -85,7 +85,8 @@ public class Entrada {
                         System.out.println();
                         try {
                             biblioteca.buscarLibro();
-                        } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
+                        } catch (ExcepcionesPersonalizadas.NoExisteCatalogo |
+                                 ExcepcionesPersonalizadas.LibroNoEncontrado e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
                             System.out.println();
                         }
@@ -111,7 +112,7 @@ public class Entrada {
                     case 6:
                         System.out.println();
                         try {
-                            biblioteca.exportarCatalogo();
+                            biblioteca.exportarCatalogo("src/resources/ficheroLibros.txt");
                         } catch (ExcepcionesPersonalizadas.NoExisteCatalogo e) {
                             System.out.println("⚠️ Error: " + e.getMessage());
                             System.out.println();
@@ -127,6 +128,7 @@ public class Entrada {
                         System.out.println();
                         System.out.println("Opción no válida, por favor introduce un número del 1 al 7.");
                         System.out.println();
+                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println();

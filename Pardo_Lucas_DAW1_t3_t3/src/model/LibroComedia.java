@@ -11,6 +11,14 @@ public class LibroComedia extends Libro {
         this.tipoHumor = tipoHumor;
     }
 
+    public String getTipoHumor() {
+        return tipoHumor;
+    }
+
+    public void setTipoHumor(String tipoHumor) {
+        this.tipoHumor = tipoHumor;
+    }
+
     @Override
     public void mostrarDatos() {
         System.out.println("ISBN: " + isbn);

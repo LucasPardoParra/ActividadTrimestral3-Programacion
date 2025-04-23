@@ -11,6 +11,14 @@ public class LibroPoliciaco extends Libro {
         this.trama = trama;
     }
 
+    public String getTrama() {
+        return trama;
+    }
+
+    public void setTrama(String trama) {
+        this.trama = trama;
+    }
+
     @Override
     public void mostrarDatos() {
         System.out.println("ISBN: " + isbn);
