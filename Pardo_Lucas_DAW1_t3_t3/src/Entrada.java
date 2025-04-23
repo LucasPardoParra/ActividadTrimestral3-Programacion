@@ -1,34 +1,3 @@
-//
-// Clase "Biblioteca":
-//      - Variables: nombre, director, catálogo.
-//      - Funcionalidades:
-//          - mostrar datos(String ISBN)
-//          - construir catálogo: crear un array con n libros (no más)
-//          - Consultar número de libros del catálogo
-//          - Agregar libros al catálogo si hay sitio y no está repetido
-//          - eliminar libro
-//          - buscar libro (por nombre, o isbn)
-//      - A tener en cuenta:
-//          - Puede no haber catálogo, habrá que lanzar dicha excepción
-//      - Excepciones personalizadas:
-//          - se actúa sobre un catálogo inexistente (runtime exception)
-//          - no hay hueco en el catálogo para meter libros
-//          - se busca un libro que no existe
-//
-// Clase "Libros":
-//      - Subclases:
-//          - terror: autor, numeroPaginas, ISBN, calificacion
-//          - comedia: autor, numeroPaginas, ISBN, tipoHumor
-//          - ensayo: autor, numeroPaginas, ISBN, tema
-//          - policiaca: autor, numeroPaginas, ISBN, trama (misterio o intriga), personajes
-//
-// Acciones para el vídeo:
-//      1. Crea una biblioteca
-//      2. Crea un catálogo de 4 libros
-//      3. Agregar 5 libros al catálogo
-//      4. Muestra la información de todos los libros
-//      5. Exporta todos los libros del catálogo a un fichero llamado libros.obj
-
 import controller.Biblioteca;
 import utils.ExcepcionesPersonalizadas;
 
